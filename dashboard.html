@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <main class="main-content center-box">
+    <div class="dashboard-box">
+      <h2 class="welcome-text">Hello, [User's Name]</h2>
+
+      <h3 class="section-heading">Signed Up Users:</h3>
+      <div id="user-list">
+        <!-- Users will be shown here later with JS -->
+      </div>
+       <button class="pretty-btn" title="Click to log out" onclick="location.href='index.html'" id="logoutBtn">Logout</button>
+    </div>
+  </main>
+
+<script>
+    //If not logged in, force back to login
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) {
+    window.location.href = 'login.html';
+    }
+
+    //Show hello message,,and load all users to display
+    document.querySelector('.welcome-text').textContent = `Hello, ${currentUser}`;
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Show signed up users
+    const userList = document.getElementById('user-list');
+    users.forEach(user => {
+    const userItem = document.createElement('div');
+    userItem.textContent = `• ${user.name} (${user.email})`;
+    userItem.style.marginBottom = '5px';
+    userList.appendChild(userItem);
+    });
+
+
+    //Log out and redirect to homepage
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+    localStorage.removeItem('currentUser');
+    window.location.href = 'index.html';
+    });
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Signup Page</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Signup Page</h1>
+  </header>
+  <div class="main-content center-box">
+    <div class="login-box">
+        <h3 style="color: rgb(10, 40, 53); margin-bottom: 10px;">Enter your details</h3>
+      <form id="signup-form">
+        <div class="form-group">
+          <label for="firstName">First Name:</label>
+          <input class="input-field" type="text" id="firstName" name="firstName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input class="input-field" type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <div class="password-wrapper-column">
+            <input class="input-field" type="password" id="password" name="password" required>
+            <button type="button" class="toggle-eye" id="togglePassword">👁️</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password:</label>
+          <input class="input-field" type="password" id="confirmPassword" name="confirmPassword" required>
+        </div>
+
+        <button type="submit" class="pretty-btn">Sign Up</button>
+        <p style="margin-top: 10px;">Already have an account? <a href="login.html" style="color: blue; text-decoration: none;">Login</a></p>
+      </form>
+    </div>
+  </div>
+ 
+  <script>
+    
+    // Redirect if user already logged in
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+        window.location.href = 'dashboard.html';
+    }
+   
+
+    //Validate entered data
+    const firstName = document.getElementById('firstName');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    const togglePassword = document.getElementById('togglePassword');
+
+    function isValidName(name) {
+      return /^[A-Za-z]{2,}$/.test(name);
+    }
+
+    function isValidEmail(emailValue) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
+    }
+
+    function updateValidationMessage(input, message, color = 'red') {
+      let msgElem = input.nextElementSibling;
+      if (!msgElem || !msgElem.classList.contains('validation-msg')) {
+        msgElem = document.createElement('div');
+        msgElem.className = 'validation-msg';
+        input.insertAdjacentElement('afterend', msgElem);
+      }
+      msgElem.textContent = message;
+      msgElem.style.color = color;
+    }
+
+    togglePassword.addEventListener('click', () => {
+      password.type = password.type === 'password' ? 'text' : 'password';
+      togglePassword.textContent = password.type === 'text' ? '🙈' : '👁️';
+    });
+
+    [firstName,email].forEach(input => {
+    input.addEventListener('input', () => {
+        if (input.id === 'firstName') {
+            if (isValidName(input.value)) {
+                updateValidationMessage(input, 'Success!', 'green');
+            } else {
+                updateValidationMessage(input, 'Must be at least 2 letters, alphabets only.', 'red');
+            }
+        } 
+          else if (input.id==='email'){
+            if(isValidEmail(input.value)){
+                 updateValidationMessage(input, 'Success!', 'green');
+             } else {
+                updateValidationMessage(input, 'Invalid email', 'red');}
+    
+        }
+    });
+});
+
+    password.addEventListener('input', () => {
+      const pwd = password.value;
+      const hasUpper = /[A-Z]/.test(pwd);
+      const hasLower = /[a-z]/.test(pwd);
+      const hasNumber = /\d/.test(pwd);   
+      const hasSpecial = /[!@#$%^&*]/.test(pwd);
+      const isLongEnough = pwd.length >= 6;
+
+    
+      if (hasUpper && hasLower && hasNumber && hasSpecial && isLongEnough) {
+        updateValidationMessage(password, 'Strong password ', 'green');
+      } else {
+        updateValidationMessage(password, 'Weak password. Include A-Z, a-z, 0-9, !@#$', 'red');
+        
+      }
+    });
+
+    confirmPassword.addEventListener('input', () => {
+      if (confirmPassword.value === password.value) {
+        updateValidationMessage(confirmPassword, 'Passwords match ', 'green');
+      } else {
+        updateValidationMessage(confirmPassword, 'Passwords do not match ', 'red');
+      }
+    });
+
+    document.getElementById('signup-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const errors = [];
+
+        const pwd = password.value;
+        const hasUpper = /[A-Z]/.test(pwd);
+        const hasLower = /[a-z]/.test(pwd);
+        const hasNumber = /\d/.test(pwd);   
+        const hasSpecial = /[!@#$%^&*]/.test(pwd);
+        const isLongEnough = pwd.length >= 6;
+
+        if (!(hasUpper && hasLower && hasNumber && hasSpecial && isLongEnough)) {
+            errors.push("Weak password. Include A-Z, a-z, 0-9, and special characters.");
+        }
+
+      if (!isValidName(firstName.value)) errors.push("Invalid first name.");
+      if (!isValidEmail(email.value)) errors.push("Invalid email.");
+      if (password.value !== confirmPassword.value) errors.push("Passwords do not match.");
+      if (password.value.length < 6) errors.push("Password too short.");
+      
+
+      if (errors.length > 0) {
+        alert("Please fix:\n" + errors.join("\n"));
+      } else {
+        alert(`Welcome, ${firstName.value}! Your account has been created.`);
+         //users is the array of all registered users.|| [] means if no users exist, start with empty array.
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+
+        //Adds new user to the array 
+        users.push({
+        name: firstName.value,
+        email: email.value,
+        password: password.value
+        });
+
+        //Save updated array of users,Log in the new user and Redirect
+        localStorage.setItem('users', JSON.stringify(users));
+        localStorage.setItem('currentUser', firstName.value);
+        window.location.href = 'dashboard.html';
+
+
+      }
+    });
+
+       
+  </script>
+
+</body>
+</html>

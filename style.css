@@ -1,0 +1,152 @@
+/* Reset & Font */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #6291ab;
+  color: #333;
+  padding: 20px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  background-color: #0b7dc4;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+/* Top Images */
+.top-images {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.top-images img {
+  width: 150px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 10px #60a0b1;
+}
+
+/* Centered message under images */
+.center-message {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 30px;
+  color: #f2f2f2;
+}
+
+/* Main Content Layout */
+.main-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Center the login box in main */
+.center-box {
+  justify-content: center;
+}
+
+/* Login Box Styling */
+.login-box {
+  background-color: rgb(175, 204, 199);
+  padding: 90px;
+  border-radius: 15px;
+}
+
+/* Pretty Button Style */
+.pretty-btn {
+  background-color: #1f1d68;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  margin: 10px;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Hover effect */
+.pretty-btn:hover {
+  background-color: #ff69b4;
+  color: white;
+}
+
+/* Layout wrapper for login + ad */
+.content-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 100px; /* large space between login and ad */
+  padding: 20px 40px;
+}
+
+/* Login form input fields */
+.input-field {
+  padding: 10px;
+  width: 100%;
+  border-radius: 8px;
+  border: none;
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+/* Form spacing */
+.form-group {
+  margin-bottom: 20px;
+}
+.password-wrapper-column {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.toggle-eye {
+  position: absolute;
+  right: 10px;
+  top: 38%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Inline validation message */
+.validation-msg {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+
+/* Dashboard Box */
+.dashboard-box {
+  background-color: rgb(175, 204, 199); /* same as login box */
+  padding: 100px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 900px;
+}
+
+/* Dashboard text */
+.welcome-text {
+  font-size: 28px;
+  color: #0a2835;
+  margin-bottom: 30px;
+}
+
+.section-heading {
+  font-size: 22px;
+  color: #0a2835;
+  margin-bottom: 15px;
+}

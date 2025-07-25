@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to this website</h1>
+  </header>
+
+  <div class="top-images">
+    <img src="images/html.jpg" alt="Top Image 1" />
+    <img src="images/istockphoto-1284271878-612x612.jpg" alt="Top Image 2" />
+    <img src="images/css.jpg" alt="Top Image 3" />
+  </div>
+
+  <h2 class="center-message">This website is made using HTML, CSS, and JavaScript</h2>
+
+  <main class="main-content center-box">
+    <div class="login-box">
+      <h3 style="text-align: center; margin-bottom: 10px;">Get Started</h3>
+      <button class="pretty-btn" title="Click to log in" onclick="location.href='login.html'">Login</button>
+      <button class="pretty-btn" title="Click to SignUp" onclick="location.href='signup.html'">Sign Up</button>
+  </main>
+
+
+
+<!-- getItem('currentUser'): Checks if someone is logged in.
+if (currentUser): If value is not null, redirect to dashboard. -->
+
+<script>
+    const currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+    window.location.href = 'dashboard.html';
+    }
+</script>
+
+</body>
+
+</html>
